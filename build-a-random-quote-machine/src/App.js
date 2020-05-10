@@ -1,12 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Quote from './components/Quote';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Original Object Wendy</h1>
+    <div className="container-fluid p-5">
+      <div className="row justify-content-center">
+        <div className="card text-primary mb-3">
+          <div className="card-header">A RANDOM QUOTE MACHINE</div>
+          <Quote />
+        </div>
+      </div>
     </div>
+    
   );
 }
 
