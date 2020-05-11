@@ -1,4 +1,0 @@
-React:
-
-class name the first letter should be uppercase
-
