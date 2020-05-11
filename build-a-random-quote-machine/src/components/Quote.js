@@ -8,8 +8,11 @@ class Quote extends React.Component {
             quotes: null,
             error: '',
             text: '',
-            author: ''
-        }
+            author: '',
+            currentQuoteIndex: 0
+        };
+
+        this.handleNewQuote = this.handleNewQuote.bind(this);
     }
 
     componentDidMount() {
@@ -21,7 +24,8 @@ class Quote extends React.Component {
             this.setState({
                 quotes: data,
                 text: data[initIndex].text,
-                author: data[initIndex].author
+                author: data[initIndex].author,
+                currentQuoteIndex: initIndex
             });
         })
         .catch(error => this.setState({ error }));
@@ -29,6 +33,18 @@ class Quote extends React.Component {
 
     getRandomindex() {
         return Math.floor((Math.random() * this.state.quotes.length) + 1);
+    }
+
+    handleNewQuote(event) {
+        let quoteIndex = this.getRandomindex();
+        while (this.state.currentQuoteIndex === quoteIndex) {
+            quoteIndex = this.getRandomindex();
+        }
+        this.setState({
+            text: this.state.quotes[quoteIndex].text,
+            author: this.state.quotes[quoteIndex].author,
+            currentQuoteIndex: quoteIndex
+        });
     }
 
     render() {
@@ -40,8 +56,8 @@ class Quote extends React.Component {
                         <cite title="Source Title">{this.state.author}</cite>
                     </footer>
                 </blockquote>
-                <a className="btn btn-primary mr-2" id="tweet-quote">tweet</a> 
-                <a className="btn btn-primary" id="new-quote">New quote</a>
+                <a className="btn btn-primary text-light mr-2" id="tweet-quote" href="/#" role="button">tweet</a> 
+                <a className="btn btn-primary text-light" id="new-quote" href="/#" onClick={this.handleNewQuote}>New quote</a>
             </div>
         )
     }
