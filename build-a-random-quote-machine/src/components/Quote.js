@@ -56,7 +56,7 @@ class Quote extends React.Component {
                         <cite title="Source Title">{this.state.author}</cite>
                     </footer>
                 </blockquote>
-                <a className="btn btn-primary text-light mr-2" id="tweet-quote" href="/#" role="button">tweet</a> 
+                <a className="btn btn-primary text-light mr-2" id="tweet-quote" href="http://twitter.com/intent/tweet" role="button">tweet</a> 
                 <a className="btn btn-primary text-light" id="new-quote" href="/#" onClick={this.handleNewQuote}>New quote</a>
             </div>
         )
