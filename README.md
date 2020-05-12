@@ -7,5 +7,6 @@
   <p>My demo address: https://randomquotemachine-979dd.firebaseapp.com/</p>
   <li>2. Build a Markdown Previewer
   <p>My demo address: https://markdownpreviewer-e6425.firebaseapp.com/</p>
+</ul>
 
 <h4>Wendy Du</h4>
