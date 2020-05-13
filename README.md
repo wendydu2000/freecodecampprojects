@@ -12,3 +12,5 @@
 </ul>
 
 <h4>Wendy Du</h4>
+<p>You can contact me at LinkedIn</p>
+https://www.linkedin.com/in/wendydu2000/
