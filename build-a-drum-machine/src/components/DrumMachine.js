@@ -65,26 +65,37 @@ class DrumMachine extends React.Component {
     document.addEventListener('keydown', this.handleKeyPress);
   }
 
-  handlePlay (event, soundKey, soundName) {
-      this.setState( {
-        currentPlayName: soundName
-      })
-      this.handleButtonStyle(soundName);
-      const sound = document.getElementById(soundKey);
-      sound.play();
+  handlePlay (event, soundData) {
+    this.setToPlay(soundData);
   }
 
   handleKeyPress (event) {
     let soundData = this.state.data.filter( sound => 
       sound.padKey === String.fromCharCode(event.keyCode));
     if (soundData.length !== 0) {
-      this.handleButtonStyle(soundData[0].soundName);
-      this.setState( {
-        currentPlayName: soundData[0].soundName
-      });
-      const sound = document.getElementById(soundData[0].padKey);
-      sound.play();
+      this.setToPlay(soundData[0]);
     }
+  }
+
+  setToPlay (soundData) {
+    this.setState( {
+      currentPlayName: soundData.soundName
+    })
+    this.handleButtonStyle(soundData.soundName);
+    const sound = document.getElementById(soundData.padKey);
+    sound.play();
+
+    // ****** better to use code below to play the audio, but will be fail in FreeCodeCamp test if you use it. Just for your information.
+
+    // sound.load();
+    // fetch(`${soundData.soundUrl}`)
+    //     .then(response => response.blob())
+    //     .then(blob => {
+    //         sound.play();
+    //     })
+    //     .catch(e => {
+    //           // Video playback failed ;(
+    //     });
   }
 
   handleButtonStyle (ButtonId) {
@@ -104,16 +115,16 @@ class DrumMachine extends React.Component {
           <div id="drum-machine" className="row justify-content-md-center p-4 bg-dark">
             <div className="col-8">
               { this.state.data.map ( (sound, index) => {
-                let playKey = sound.padKey;
-                let soundName = sound.soundName;
                 return (
                   <button 
                     className="drum-pad bg-gradient-primary" 
                     key={sound.padKey} 
                     id={sound.soundName}
-                    onClick={((e) => this.handlePlay(e,playKey,soundName))}
+                    onClick={((e) => this.handlePlay(e,sound))}
                   >{sound.padKey}
-                    <audio id={sound.padKey} 
+                    <audio 
+                      preload="auto" 
+                      id={sound.padKey} 
                       src={sound.soundUrl}
                       className="clip"
                     >
