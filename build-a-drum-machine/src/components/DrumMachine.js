@@ -47,67 +47,62 @@ const sounds = [
     soundUrl: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3',
     padKey: 'C'
   }
-  // ,
-  // {
-  //   soundName: 'Chord_1',
-  //   soundUrl: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3',
-  //   padKey: 'Q'
-  // },
-  // {
-  //   soundName: 'Chord_2',
-  //   soundUrl: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3',
-  //   padKey: 'Q'
-  // },
-  // {
-  //   soundName: 'Chord_3',
-  //   soundUrl: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3',
-  //   padKey: 'Q'
-  // },
-  // {
-  //   soundName: 'Give_us_a_light',
-  //   soundUrl: 'https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3',
-  //   padKey: 'Q'
-  // },
-  // {
-  //   soundName: 'Dry_Ohh',
-  //   soundUrl: 'https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3',
-  //   padKey: 'Q'
-  // },
-  // {
-  //   soundName: 'Bld_H1',
-  //   soundUrl: 'https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3',
-  //   padKey: 'Q'
-  // },
-  // {
-  //   soundName: 'punchy_kick_1',
-  //   soundUrl: 'https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3',
-  //   padKey: 'Q'
-  // },
-  // {
-  //   soundName: 'side_stick_1',
-  //   soundUrl: 'https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3',
-  //   padKey: 'Q'
-  // },
-  // {
-  //   soundName: 'Brk_Snr',
-  //   soundUrl: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3',
-  //   padKey: 'Q'
-  // }
-]
+];
+
 class DrumMachine extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      data: sounds,
+      currentPlayName: ''
+    };
+    this.handlePlay = this.handlePlay.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress);
+  }
+
+  handlePlay (event, soundKey, soundName) {
+      this.setState( {
+        currentPlayName: soundName
+      })
+      const sound = document.getElementById(soundKey);
+      sound.play();
+  }
+
+  handleKeyPress (event) {
+    let soundData = this.state.data.filter( sound => 
+      sound.padKey === String.fromCharCode(event.keyCode));
+    if (soundData.length !== 0) {
+      this.setState( {
+        currentPlayName: soundData[0].soundName
+      });
+      const sound = document.getElementById(soundData[0].padKey);
+      sound.play();
+    }
+  }
 
   render() {
     return (
       <div className="container drumContainer border mt-5 ">
           <div className="row">
-            <h1>Drum Machine</h1>
+            <h1 className="m-4">Drum Machine</h1>
           </div>
           <div id="drum-machine" className="row justify-content-md-center border p-2">
             <div className="col-8">
-              { sounds.map ( (sound, index) => {
+              { this.state.data.map ( (sound, index) => {
+                let playKey = sound.padKey;
+                let soundName = sound.soundName;
                 return (
-                  <button className="drum-pad bg-info" key={sound.padKey} id={index}>{sound.padKey}
-                    <audio id={sound.soundName} 
+                  <button 
+                    className="drum-pad bg-info" 
+                    key={sound.padKey} 
+                    id={sound.soundName}
+                    onClick={((e) => this.handlePlay(e,playKey,soundName))}
+                  >{sound.padKey}
+                    <audio id={sound.padKey} 
                       src={sound.soundUrl}
                       className="clip"
                     >
@@ -116,8 +111,9 @@ class DrumMachine extends React.Component {
                 )
               })}
             </div>
-            <div id="display" className="col-4 bg-warning border">
-              display
+            <div id="display" className="col-4 bg-warning border displayDiv p-3">
+              <strong>Sound Name:</strong>
+              <p>{this.state.currentPlayName}</p>
             </div>
           </div>
       </div>
