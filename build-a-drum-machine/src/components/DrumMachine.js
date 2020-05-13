@@ -58,6 +58,7 @@ class DrumMachine extends React.Component {
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleButtonStyle = this.handleButtonStyle.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +69,7 @@ class DrumMachine extends React.Component {
       this.setState( {
         currentPlayName: soundName
       })
+      this.handleButtonStyle(soundName);
       const sound = document.getElementById(soundKey);
       sound.play();
   }
@@ -76,6 +78,7 @@ class DrumMachine extends React.Component {
     let soundData = this.state.data.filter( sound => 
       sound.padKey === String.fromCharCode(event.keyCode));
     if (soundData.length !== 0) {
+      this.handleButtonStyle(soundData[0].soundName);
       this.setState( {
         currentPlayName: soundData[0].soundName
       });
@@ -84,20 +87,28 @@ class DrumMachine extends React.Component {
     }
   }
 
+  handleButtonStyle (ButtonId) {
+    document.getElementById(ButtonId).style = "color: orange; border: 3px solid orange;";
+      
+    setTimeout(() => {
+      document.getElementById(ButtonId).style = "color: black; border: None;";
+    }, 200);
+  }
+
   render() {
     return (
-      <div className="container drumContainer border mt-5 ">
-          <div className="row">
+      <div className="container drumContainer border border-danger mt-5">
+          <div className="row bg-dark text-light">
             <h1 className="m-4">Drum Machine</h1>
           </div>
-          <div id="drum-machine" className="row justify-content-md-center border p-2">
+          <div id="drum-machine" className="row justify-content-md-center p-4 bg-dark">
             <div className="col-8">
               { this.state.data.map ( (sound, index) => {
                 let playKey = sound.padKey;
                 let soundName = sound.soundName;
                 return (
                   <button 
-                    className="drum-pad bg-info" 
+                    className="drum-pad bg-gradient-primary" 
                     key={sound.padKey} 
                     id={sound.soundName}
                     onClick={((e) => this.handlePlay(e,playKey,soundName))}
@@ -111,7 +122,7 @@ class DrumMachine extends React.Component {
                 )
               })}
             </div>
-            <div id="display" className="col-4 bg-warning border displayDiv p-3">
+            <div id="display" className="col-4 border text-light displayDiv p-3">
               <strong>Sound Name:</strong>
               <p>{this.state.currentPlayName}</p>
             </div>

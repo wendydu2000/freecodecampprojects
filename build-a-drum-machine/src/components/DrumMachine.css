@@ -12,4 +12,10 @@
 .displayDiv {
   height: 8rem;
   font-size: 1.2rem;
+  background-color: #0275d8;
+}
+
+button {
+  border-radius: 3.5rem;
+  background-image: radial-gradient(#e4e4e4 15%, #0275d8 60%);
 }
