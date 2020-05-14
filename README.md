@@ -9,6 +9,8 @@
   <p>My demo address: https://markdownpreviewer-e6425.firebaseapp.com/</p>
   <li>3. Build a Drum Machine (finished)
   <p>My demo address: https://drummachine-ac6fc.firebaseapp.com/</p>
+  <li>4. Build a JavaScript Calculator (in progressing)
+  <li>5. Build a Pomodoro Clock (in progressing)
 </ul>
 
 <h4>Wendy Du</h4>
