@@ -1,0 +1,62 @@
+.calculatorDiv {
+  background-color: #505050;
+  width: 24.8rem;
+  height: 29rem;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  border-width:5px;  
+  border-style:ridge;
+  border-color: #303030;
+  box-shadow: 10px 10px 5px #505050;
+}
+
+.displayDiv {
+  background-color: #a2af77;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  height: 4rem;
+  padding-top: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 1.5rem;
+  text-align: right;
+  line-height: 1.5rem;
+}
+
+.formulaDiv {
+  height: 1.6rem;
+  font-size: 1rem;
+  color: orange;
+}
+
+.btn {
+  width: 4.8rem;
+  margin-right: 0.6rem;
+  font-size: 26px;
+}
+
+.btn-info {
+  width: 10.2rem;
+  margin-right: 0.6rem;
+}
+
+.btn-0 {
+  width: 10.2rem;
+}
+
+.echoDiv {
+  padding: 0;
+  margin-left: 0.4rem;
+  margin-right: 0;
+}
+
+.btn-echo {
+  height: 7.5rem;
+}
+
+.buttonRight {
+  margin-right: 0;
+}
+
+/* #f15a2b */
