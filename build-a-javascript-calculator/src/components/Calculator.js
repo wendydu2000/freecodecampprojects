@@ -1,128 +1,153 @@
 import React from 'react'
 import "./Calculator.css";
 
+const numberKeys = ['0','1','2','3','4','5','6','7','8','9'];
+const operatorKeys = ['+','-','*','/'];
+
 class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      numberKeys: ['0','1','2','3','4','5','6','7','8','9'],
-      operatorKeys: ['.','AC','+','-','×','÷','='],
-      firstNumberZero: true,
-      preIsOperator: false,
-      preNumber: '0',
       currentNumber: '0',
       formula: '',
       result: 0,
-      display: '0'
+      preIsOperator: false,
+      preIsDecimal: false,
+      operatorTimes: 0
     }
-    this.handleClear = this.handleClear.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.setAllState = this.setAllState.bind(this);
   }
 
   componentDidMount() {
-    const bns = document.getElementsByTagName("button");
-    for (let i = 0; i < bns.length; i++) {
-      bns[i].addEventListener("click", this.handleClick);
+    const buttons = document.getElementsByTagName("button");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", this.handleClick);
     }
-    
   }
 
   handleClick(event) {
     const keyValue = event.target.innerText;
-    if (this.state.numberKeys.find(element => element === keyValue)) {
-      if (this.state.firstNumberZero) {
-        if (keyValue === '0')
-        {
-          this.setState ({
-              formula: '',
-              firstNumberZero: true
-          })
-        } else {
-          this.setState ({
-            currentNumber: keyValue,
-            formula: this.state.formula + keyValue,
-            firstNumberZero: false,
-            display: keyValue
-          });
+    let currentNumber = this.state.currentNumber;
+    let formula = this.state.formula;
+
+    switch(true){
+      case numberKeys.includes(keyValue):
+        if(this.state.currentNumber!=="0"){
+          // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
+          this.setAllState(
+            currentNumber + keyValue, 
+            formula + keyValue, 
+            "", 
+            false, 
+            "", 
+            "");
+
+        }else{
+          // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
+          this.setAllState(
+            keyValue,
+            keyValue, 
+            "",
+            "", 
+            "", 
+            "");
         }
-      } else {
-        this.setState ({
-          currentNumber: this.state.currentNumber + keyValue,
-          formula: this.state.formula + keyValue,
-          display: this.state.currentNumber + keyValue
-        });
-      }
-      console.log(this.state);
-    } else if (this.state.operatorKeys.find(element => element === keyValue)) {
-      switch (keyValue) {
-        case '+':
-          this.setState ({
-            preNumber: this.state.currentNumber,
-            currentNumber: '',
-            formula: this.state.formula + keyValue,
-            result: this.state.result + parseInt(this.state.currentNumber),
-            display: keyValue
-          })
-          break;
+        break;
 
-        case '-':
-          this.setState ({
-            preNumber: this.state.currentNumber,
-            currentNumber: '',
-            formula: this.state.formula + keyValue,
-            result: this.state.result - parseInt(this.state.currentNumber),
-            display: keyValue
-          })
-          break;
+      case operatorKeys.includes(keyValue) :
+        if(!(this.state.preIsOperator)){
+          // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
+          this.setAllState(
+            currentNumber + keyValue, 
+            formula + keyValue, 
+            "", 
+            true, 
+            false, 
+            this.state.operatorTimes +1);
+        }else{
+          if (keyValue === "-") {
 
-        case '×':
-          this.setState ({
-            preNumber: this.state.currentNumber,
-            currentNumber: '',
-            formula: this.state.formula + keyValue,
-            result: this.state.result * parseInt(this.state.currentNumber),
-            display: keyValue
-          })
-          break;
+            // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
+            this.setAllState(
+              currentNumber + keyValue, 
+              formula + keyValue, 
+              "",
+              true, 
+              false, 
+              this.state.operatorTimes +1);
+          } else {
+            const editedNumber = currentNumber.slice(0,currentNumber.length-this.state.operatorTimes);
 
-        case '÷':
-          this.setState ({
-            preNumber: this.state.currentNumber,
-            currentNumber: '',
-            formula: this.state.formula + keyValue,
-            result: this.state.result / parseInt(this.state.currentNumber),
-            display: keyValue
-          })
-          break;
+            // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
+            this.setAllState(
+              editedNumber + keyValue, 
+              editedNumber + keyValue, 
+              "",
+              "", 
+              "", 
+              "");
+          }
+        }
+        break;
 
-        case '=':
-          const getResult = this.state.result + parseInt(this.state.currentNumber);
-          this.setState ({
-            preNumber: this.state.currentNumber,
-            currentNumber: '',
-            formula: this.state.formula + "=" + getResult,
-            result: getResult,
-            display: getResult
-          })
-          break;
-      
-        default:
-          break;
-      }
-      
+      case keyValue === "AC":
+        // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
+        this.setAllState(
+          "0", 
+          " ", 
+          "",
+          false, 
+          false, 
+          0);
+        break;
+
+      case keyValue === "=":
+        // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
+        this.setAllState(
+          eval(currentNumber), 
+          "", 
+          eval(formula),
+          false, 
+          true, 
+          0);
+
+        document.getElementById("formula").innerText = formula + "=" + eval(formula);
+        break;
+
+      case keyValue === ".":
+        if(!this.state.preIsDecimal){
+          // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
+          this.setAllState(
+            currentNumber + ".", 
+            formula + ".", 
+            "",
+            "", 
+            true, 
+            "");
+        }
+        break;
+
+      default:
+        console.log("error");
+        break;
     }
-
   }
 
-  handleClear() {
-    this.setState ({
-      firstNumberZero: true,
-      preNumber: '0',
-      currentNumber: '0',
-      formula: '',
-      result: 0,
-      display: '0'
-    })
+  setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes){
+    currentNumber = (currentNumber !== "") ? currentNumber : this.state.currentNumber;
+    formula = (formula !== "") ? formula : this.state.formula;
+    result = (result !== "") ? result : this.state.result;
+    preIsOperator = (preIsOperator !== "") ? preIsOperator : this.state.preIsOperator;
+    preIsDecimal = (preIsDecimal !== "") ? preIsDecimal : this.state.preIsDecimal;
+    operatorTimes = (operatorTimes !== "") ? operatorTimes : this.state.operatorTimes;
+
+    this.setState({currentNumber});
+    this.setState({formula});
+    this.setState({result});
+    this.setState({preIsOperator});
+    this.setState({preIsDecimal});
+    this.setState({operatorTimes});
   }
 
   render() {
@@ -131,13 +156,13 @@ class Calculator extends React.Component {
         <h4 className="text-center">JavaScript Calculator - Wendy</h4>
         <div className="calculatorDiv mx-auto p-4">
           <div className="displayDiv">
-            <div className="formulaDiv">{this.state.formula}</div>
-            <div className="resultDiv" id="display">{this.state.display}</div>
+            <div className="formulaDiv" id="formula">{this.state.formula}</div>
+            <div className="resultDiv" id="display">{this.state.currentNumber}</div>
           </div>
           <div className="mt-3">
-            <button className="btn btn-info" id="clear" onClick={this.handleClear}>AC</button>
-            <button className="btn btn-dark" id="divide">÷</button>
-            <button className="btn btn-dark buttonRight" id="multiply">×</button>
+            <button className="btn btn-info" id="clear">AC</button>
+            <button className="btn btn-dark" id="divide">/</button>
+            <button className="btn btn-dark buttonRight" id="multiply">*</button>
           </div>
           <div className="mt-3">
             <button className="btn btn-secondary" id="seven">7</button>
