@@ -1,0 +1,68 @@
+.containerDiv {
+  width: 45rem;
+  height: 30rem;
+  background-image: url(../clock.jpg);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size:70%;
+}
+
+.clockDiv {
+  width: 22rem;
+  height: 100%;
+  background-color: #212523;
+  border-color: #9ecaed;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  border-width:3px;  
+  border-style:ridge;
+  box-shadow: 0 0 10px #9ecaed;
+  padding: 2rem;
+}
+
+.timeBlock {
+  border-color: #9ecaed;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border-width:3px;  
+  border-style:ridge;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+.lengthText {
+  font-size: 0.9rem;
+}
+
+.sBtnDiv {
+  height: 2rem;
+}
+
+.deButton {
+  height: 1.6rem;
+  line-height: 0rem;
+  font-size: 1.1rem;
+}
+
+.deButton:hover {
+  box-shadow: 0 0 5px #9ecaed;
+  border-color: #9ecaed;
+}
+
+.textLength {
+  margin: 0 0.6rem;
+}
+
+.bigButton {
+  width: 8rem;
+  color: #FFFFFF;
+  background-color: #000000;
+}
+
+.bigButton:hover {
+  color: #FFFFFF;
+  box-shadow: 0 0 10px #9ecaed;
+  border-color: #9ecaed;
+}
