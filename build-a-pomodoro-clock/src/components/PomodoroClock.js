@@ -10,7 +10,7 @@ class PomodoroClock extends React.Component {
       runningFlag: false,
       interval: 0,
       sessionBreakText: "Session",
-      timerDisplay: "25",
+      timerDisplay: "25:00",
       timerMinutes: 25,
       timerSeconds: 0,
     };
@@ -44,7 +44,8 @@ class PomodoroClock extends React.Component {
           breakLength = (breakLength === 1) ? 1 : breakLength - 1;
           if (sessionBreakText === "Break") {
             timerMinutes = breakLength;
-            timerDisplay = breakLength.toString();
+            timerDisplay = breakLength < 10 ? "0"+breakLength.toString(): breakLength.toString();
+            timerDisplay += ":00";
             timerSeconds = 0;
           }
         }
@@ -55,7 +56,9 @@ class PomodoroClock extends React.Component {
           breakLength = (breakLength === 60) ? 60 : breakLength + 1;
           if (sessionBreakText === "Break") {
             timerMinutes = breakLength;
-            timerDisplay = breakLength.toString();
+            timerDisplay = breakLength < 10 ? "0"+breakLength.toString(): breakLength.toString();
+            timerDisplay += ":00";
+            // timerDisplay = breakLength.toString();
             timerSeconds = 0;
           }
         }
@@ -66,7 +69,9 @@ class PomodoroClock extends React.Component {
           sessionLength = (sessionLength === 1) ? 1 : sessionLength - 1;
           if (sessionBreakText === "Session") {
             timerMinutes = sessionLength;
-            timerDisplay = sessionLength.toString();
+            timerDisplay = sessionLength < 10 ? "0"+sessionLength.toString(): sessionLength.toString();
+            timerDisplay += ":00";
+            // timerDisplay = sessionLength.toString();
             timerSeconds = 0;
           }
         }
@@ -77,7 +82,9 @@ class PomodoroClock extends React.Component {
           sessionLength = (sessionLength === 60) ? 60 : sessionLength + 1;
           if (sessionBreakText === "Session") {
             timerMinutes = sessionLength;
-            timerDisplay = sessionLength.toString();
+            timerDisplay = sessionLength < 10 ? "0"+sessionLength.toString(): sessionLength.toString();
+            timerDisplay += ":00";
+            // timerDisplay = sessionLength.toString();
             timerSeconds = 0;
           }
         }
@@ -89,7 +96,7 @@ class PomodoroClock extends React.Component {
           clearInterval(interval)
         } else {
             this.setState({
-              interval: setInterval(this.sessionCountdown, 100)
+              interval: setInterval(this.sessionCountdown, 1000)
             })
         }
         break;
@@ -176,7 +183,7 @@ class PomodoroClock extends React.Component {
           <h4 className="mt-3">Pomodorm Clock</h4>
           <div className="container timeBlock bg-light text-center p-1" id="sessionBreakText">
             <div><h5 className="mt-2" id="timer-label">{this.state.sessionBreakText}</h5></div>
-            <div><h1 id="time-left">{this.state.timerDisplay}</h1></div>
+            <div><h1 id="time-left">{this.state.timerDisplay.length <5 ? alert("error"): this.state.timerDisplay}</h1></div>
           </div>
           <div className="container mt-4 mb-4">
             <div className="row">
