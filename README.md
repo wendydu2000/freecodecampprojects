@@ -5,13 +5,14 @@
 <ul>
   <li>1. Build a Random Quote Machine (finished)</li>
   <p>My demo address: https://randomquotemachine-979dd.firebaseapp.com/</p>
-  <li>2. Build a Markdown Previewer (finished)
+  <li>2. Build a Markdown Previewer (finished)</li>
   <p>My demo address: https://markdownpreviewer-e6425.firebaseapp.com/</p>
-  <li>3. Build a Drum Machine (finished)
+  <li>3. Build a Drum Machine (finished)</li>
   <p>My demo address: https://drummachine-ac6fc.firebaseapp.com/</p>
-  <li>4. Build a JavaScript Calculator (finished)
+  <li>4. Build a JavaScript Calculator (finished)</li>
   <p>My demo address: https://javascriptcalculator-7e165.web.app/</p>
-  <li>5. Build a Pomodoro Clock (finished)
+  <li>5. Build a Pomodoro Clock (finished)</li>
+  <p>My demo address: https://pomodoroclock-a9ec1.firebaseapp.com/</p>
 </ul>
 
 <h4>Wendy Du</h4>
