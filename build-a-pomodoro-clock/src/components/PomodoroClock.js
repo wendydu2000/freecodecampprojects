@@ -1,4 +1,5 @@
 /**
+ * FreeCodeCamp
  * Front End Libraries Projects - Build a Pomodoro Clock
  * 
  * My Demo Adress
@@ -35,7 +36,7 @@ class PomodoroClock extends React.Component {
   }
 
   /**
-   * when the component did mount, set buttons click event
+   * After the component is mounted, set buttons click event
    * set timer title text color
    */
   componentDidMount() {

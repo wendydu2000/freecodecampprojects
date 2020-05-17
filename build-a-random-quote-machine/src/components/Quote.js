@@ -1,5 +1,22 @@
+/**
+ * FreeCodeCamp
+ * Front End Libraries Projects - Build a Random Quote Machine
+ * Project requirements：
+ * @link https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-random-quote-machine
+ * 
+ * My Demo Adress:
+ * @link https://pomodoroclock-a9ec1.firebaseapp.com
+ * 
+ * @author Wendy Du
+ * @version 1.0
+ * @since 2020-05-10
+ */
+
 import React from 'react';
 
+/**
+ * This is the radom quotes component
+ */
 class Quote extends React.Component {
 
     constructor(props) {
@@ -17,6 +34,10 @@ class Quote extends React.Component {
         this.handleNewQuote = this.handleNewQuote.bind(this);
     }
 
+    /**
+     * After the component is mounted, 
+     * fetch quotes json data from website
+     */
     componentDidMount() {
         fetch("https://type.fit/api/quotes")
         .then(response => response.json())
@@ -34,10 +55,18 @@ class Quote extends React.Component {
         .catch(error => this.setState({ error }));
     }
 
+    /**
+     * This method is use to get the random index number of a quote
+     */
     getRandomindex() {
         return Math.floor((Math.random() * this.state.quotes.length) + 1);
     }
 
+    /**
+     * This method is main method, 
+     * When click the new-quote button, it set states and display elements on the page
+     * @param event - click event of the new-quote button
+     */
     handleNewQuote(event) {
         const bgColors = ["#0275d8", "#5cb85c", "#5bc0de", "#f0ad4e"];
         const bgIndex = this.state.currentColorIndex;
@@ -58,6 +87,9 @@ class Quote extends React.Component {
         });
     }
 
+    /**
+     * This method is use to set the page color style
+     */
     handleBgColor() {
         document.body.style.backgroundColor = this.state.currentColor;
         document.getElementById("tweet-quote").style.backgroundColor = this.state.currentColor;
