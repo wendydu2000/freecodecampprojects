@@ -1,6 +1,20 @@
+/**
+ * Front End Libraries Projects - Build a Pomodoro Clock
+ * 
+ * My Demo Adress
+ * @link https://pomodoroclock-a9ec1.firebaseapp.com
+ * 
+ * @author Wendy Du
+ * @version 1.0
+ * @since 2020-05-16
+ */
+
 import React from 'react';
 import "./PomodoroClock.css";
 
+/**
+ * This is the pomodoro clock component
+ */
 class PomodoroClock extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +34,10 @@ class PomodoroClock extends React.Component {
     this.timerDisplayString = this.timerDisplayString.bind(this);
   }
 
+  /**
+   * when the component did mount, set buttons click event
+   * set timer title text color
+   */
   componentDidMount() {
     const buttons = document.getElementsByTagName("button");
     for (let i = 0; i < buttons.length; i++) {
@@ -28,6 +46,10 @@ class PomodoroClock extends React.Component {
     document.getElementById("sessionBreakText").style.color = "#007bff"; 
   }
 
+  /**
+   * control the button's click event
+   * @param event - event of buttons
+   */
   handleClick(event) {
     const clickId = event.target.id;
     let breakLength = this.state.breakLength;
@@ -40,6 +62,12 @@ class PomodoroClock extends React.Component {
     let timerDisplay = this.state.timerDisplay;
 
     switch (clickId) {
+      /**
+       * click the break-decrement button,
+       * the breakLength value decrements by a value of 1,
+       * breakLength minimum value is 1.
+       * @note the button will not work if the timer is running
+       */
       case "break-decrement":
         if (!runningFlag) {
           breakLength = (breakLength === 1) ? 1 : breakLength - 1;
@@ -50,6 +78,12 @@ class PomodoroClock extends React.Component {
         }
         break;
 
+      /**
+       * click the break-increment button,
+       * the breakLength value increments by a value of 1,
+       * breakLength maximum value is 60.
+       * @note the button will not work if the timer is running
+       */
       case "break-increment":
         if (!runningFlag) {
           breakLength = (breakLength === 60) ? 60 : breakLength + 1;
@@ -60,6 +94,12 @@ class PomodoroClock extends React.Component {
         }
         break;
 
+      /**
+       * click the session-decrement button,
+       * the sessionLength value decrements by a value of 1,
+       * sessionLength minimum value is 1.
+       * @note the button will not work if the timer is running
+       */
       case "session-decrement":
         if (!runningFlag) {
           sessionLength = (sessionLength === 1) ? 1 : sessionLength - 1;
@@ -70,6 +110,12 @@ class PomodoroClock extends React.Component {
         }
         break;
 
+      /**
+       * click the session-increment button,
+       * the sessionLength value increments by a value of 1,
+       * sessionLength maximum value is 60.
+       * @note the button will not work if the timer is running
+       */
       case "session-increment":
         if (!runningFlag) {
           sessionLength = (sessionLength === 60) ? 60 : sessionLength + 1;
@@ -80,6 +126,11 @@ class PomodoroClock extends React.Component {
         }
         break;
 
+      /**
+       * click the start_stop button, switch between timer running and pausing
+       * If the timer is running, the countdown should pause.
+       * If the timer is pausing, the countdown should run.
+       */
       case "start_stop":
         this.setState({runningFlag: !runningFlag});
         if (runningFlag) {
@@ -91,10 +142,10 @@ class PomodoroClock extends React.Component {
         }
         break;
 
+      /**
+       * run handleReset function to reset the timer
+       */
       case "reset":
-        clearInterval(this.state.interval);
-        document.getElementById("beep").pause();
-        document.getElementById("beep").currentTime = 0;
         this.handleReset();
         break;
 
@@ -115,6 +166,11 @@ class PomodoroClock extends React.Component {
     }
   }
 
+  /**
+   * This method is main method to control the timer
+   * set states,
+   * switch the action between running and pausing
+   */
   sessionCountdown() {
     let timerMinutes = this.state.timerMinutes;
     let timerSeconds = this.state.timerSeconds;
@@ -134,12 +190,12 @@ class PomodoroClock extends React.Component {
       if (sessionBreakText === "Session") {
         sessionBreakText = "Break";
         timerMinutes = breakLength;
-        timerSeconds = 59;
+        timerSeconds = 1;
         document.getElementById("sessionBreakText").style.color = "#dc3545"; 
       } else {
         sessionBreakText = "Session";
         timerMinutes = sessionLength;
-        timerSeconds = 59;
+        timerSeconds = 1;
         document.getElementById("sessionBreakText").style.color = "#007bff"; 
 
       }
@@ -153,6 +209,12 @@ class PomodoroClock extends React.Component {
     });
   }
 
+  /**
+   * Return string of the remaining time in mm:ss format
+   * for example 22:43
+   * @param minutes - the left minutes of the timer
+   * @param seconds - the left seconds of the timer
+   */
   timerDisplayString(minutes,seconds) {
     let minutesString = minutes < 10 ? "0"+minutes.toString(): minutes.toString();
     let secondsString = seconds < 10 ? "0"+seconds.toString(): seconds.toString();
@@ -160,7 +222,16 @@ class PomodoroClock extends React.Component {
     return timerDisplay;
   }
 
+  /**
+   * This method is use to reset the pomodoro clock.
+   * any running timer is stopped, 
+   * beep stop playing and is rewound to the beginning 
+   * the states should reset to original value
+   */
   handleReset(){
+    clearInterval(this.state.interval);
+    document.getElementById("beep").pause();
+    document.getElementById("beep").currentTime = 0;
     this.setState ({
       breakLength: 5,
       sessionLength: 25,
