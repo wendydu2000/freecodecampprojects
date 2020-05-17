@@ -11,7 +11,7 @@
   <p>My demo address: https://drummachine-ac6fc.firebaseapp.com/</p>
   <li>4. Build a JavaScript Calculator (finished)
   <p>My demo address: https://javascriptcalculator-7e165.web.app/</p>
-  <li>5. Build a Pomodoro Clock (in progressing)
+  <li>5. Build a Pomodoro Clock (finished)
 </ul>
 
 <h4>Wendy Du</h4>

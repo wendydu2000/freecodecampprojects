@@ -93,6 +93,8 @@ class PomodoroClock extends React.Component {
 
       case "reset":
         clearInterval(this.state.interval);
+        document.getElementById("beep").pause();
+        document.getElementById("beep").currentTime = 0;
         this.handleReset();
         break;
 
@@ -128,6 +130,7 @@ class PomodoroClock extends React.Component {
     const timerDisplay = this.timerDisplayString(timerMinutes,timerSeconds);
   
     if (distance === 0) {
+      document.getElementById("beep").play();
       if (sessionBreakText === "Session") {
         sessionBreakText = "Break";
         timerMinutes = breakLength;
@@ -211,6 +214,11 @@ class PomodoroClock extends React.Component {
             </div>
           </div>
         </div>
+        <audio 
+          id="beep" 
+          preload="auto" 
+          src="http://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/start.ogg"
+        />
       </div>
     )
   }
