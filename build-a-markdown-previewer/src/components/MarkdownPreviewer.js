@@ -1,3 +1,15 @@
+/**
+ * FreeCodeCamp
+ * Front End Libraries Projects - Build a Markdown Previewer
+ * 
+ * My Demo Adress
+ * @link https://markdownpreviewer-e6425.firebaseapp.com/
+ * 
+ * @author Wendy Du
+ * @version 1.0
+ * @since 2020-05-15
+ */
+
 import React from 'react';
 const marked = require('marked');
 
@@ -53,6 +65,9 @@ And here. | Okay. | I think we get it.
 
 `;
 
+/**
+ * This is the Makedown Previewer component
+ */
 class MarkdownPreviewer extends React.Component {
   constructor(props) {
     super(props);

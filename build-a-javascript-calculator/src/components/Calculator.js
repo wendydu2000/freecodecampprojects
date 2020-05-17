@@ -1,9 +1,24 @@
+/**
+ * FreeCodeCamp
+ * Front End Libraries Projects - Build a JavaScript Calculator
+ * 
+ * My Demo Adress
+ * @link https://javascriptcalculator-7e165.web.app/
+ * 
+ * @author Wendy Du
+ * @version 1.0
+ * @since 2020-05-14
+ */
+
 import React from 'react'
 import "./Calculator.css";
 
 const numberKeys = ['0','1','2','3','4','5','6','7','8','9'];
 const operatorKeys = ['+','-','*','/'];
 
+/**
+ * This is the calculator component
+ */
 class Calculator extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +34,9 @@ class Calculator extends React.Component {
     this.setAllState = this.setAllState.bind(this);
   }
 
+  /**
+   * After the component is mounted, set buttons click event
+   */
   componentDidMount() {
     const buttons = document.getElementsByTagName("button");
     for (let i = 0; i < buttons.length; i++) {
@@ -26,12 +44,19 @@ class Calculator extends React.Component {
     }
   }
 
+  /**
+   * This method is used to handle click event of buttons
+   * @param event - event of buttons
+   */
   handleClick(event) {
     const keyValue = event.target.innerText;
     let currentNumber = this.state.currentNumber;
     let formula = this.state.formula;
 
     switch(true){
+      /**
+       * handle number keys
+       */
       case numberKeys.includes(keyValue):
         if(this.state.currentNumber!=="0"){
           // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
@@ -55,6 +80,7 @@ class Calculator extends React.Component {
         }
         break;
 
+      // handle operator keys
       case operatorKeys.includes(keyValue) :
         if(!(this.state.preIsOperator)){
           // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
@@ -91,6 +117,7 @@ class Calculator extends React.Component {
         }
         break;
 
+      // if click the AC button, set all state to their origial values
       case keyValue === "AC":
         // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
         this.setAllState(
@@ -102,6 +129,7 @@ class Calculator extends React.Component {
           0);
         break;
 
+      // if click the = button, calculate the result and display formula+result
       case keyValue === "=":
         // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
         this.setAllState(
@@ -115,6 +143,7 @@ class Calculator extends React.Component {
         document.getElementById("formula").innerText = formula + "=" + eval(formula);
         break;
 
+      // handle the . button
       case keyValue === ".":
         if(!this.state.preIsDecimal){
           // setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes)
@@ -134,6 +163,15 @@ class Calculator extends React.Component {
     }
   }
 
+  /**
+   * This method is used to set all states' values
+   * @param currentNumber - display the currently clicked number and operator
+   * @param formula - display the whole fomula, and result(if you click the = button)
+   * @param result - calculate the result
+   * @param preIsOperator - whether the previous input is an operator
+   * @param preIsDecimal - whether the previous input is an decimal
+   * @param operatorTimes - count the number of consecutive operators entered before
+   */
   setAllState(currentNumber, formula, result, preIsOperator, preIsDecimal, operatorTimes){
     currentNumber = (currentNumber !== "") ? currentNumber : this.state.currentNumber;
     formula = (formula !== "") ? formula : this.state.formula;

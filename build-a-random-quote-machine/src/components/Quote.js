@@ -5,7 +5,7 @@
  * @link https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-random-quote-machine
  * 
  * My Demo Adress:
- * @link https://pomodoroclock-a9ec1.firebaseapp.com
+ * @link https://randomquotemachine-979dd.firebaseapp.com/
  * 
  * @author Wendy Du
  * @version 1.0
@@ -56,7 +56,7 @@ class Quote extends React.Component {
     }
 
     /**
-     * This method is use to get the random index number of a quote
+     * This method is used to get the random index number of a quote
      */
     getRandomindex() {
         return Math.floor((Math.random() * this.state.quotes.length) + 1);
@@ -88,7 +88,7 @@ class Quote extends React.Component {
     }
 
     /**
-     * This method is use to set the page color style
+     * This method is used to set the page color style
      */
     handleBgColor() {
         document.body.style.backgroundColor = this.state.currentColor;

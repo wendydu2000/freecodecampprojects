@@ -1,6 +1,21 @@
+/**
+ * FreeCodeCamp
+ * Front End Libraries Projects - Build a Drum Machine
+ * 
+ * My Demo Adress
+ * @link https://drummachine-ac6fc.firebaseapp.com/
+ * 
+ * @author Wendy Du
+ * @version 1.0
+ * @since 2020-05-12
+ */
+
 import React from 'react';
 import './DrumMachine.css'; 
 
+/**
+ * sounds data
+ */
 const sounds = [
   {
     soundName: 'Heater-1',
@@ -49,6 +64,9 @@ const sounds = [
   }
 ];
 
+/**
+ * This is the Drum Machine component
+ */
 class DrumMachine extends React.Component {
   constructor (props) {
     super(props);
@@ -65,10 +83,17 @@ class DrumMachine extends React.Component {
     document.addEventListener('keydown', this.handleKeyPress);
   }
 
+  /**
+   * This method is used to handle the click event of drum
+   * It will play the drum sound when you click the drum pad
+   */
   handlePlay (event, soundData) {
     this.setToPlay(soundData);
   }
 
+  /**
+   * This method is used to handle the key press event of drum pad
+   */
   handleKeyPress (event) {
     let soundData = this.state.data.filter( sound => 
       sound.padKey === String.fromCharCode(event.keyCode));
@@ -77,6 +102,10 @@ class DrumMachine extends React.Component {
     }
   }
 
+  /**
+   * This method is used to paly sound
+   * @param soundData - sound data
+   */
   setToPlay (soundData) {
     this.setState( {
       currentPlayName: soundData.soundName
@@ -98,6 +127,10 @@ class DrumMachine extends React.Component {
     //     });
   }
 
+  /**
+   * This method is used to handle style of drum pad when you click the drum pad
+   * @param ButtonId - drum pad id
+   */
   handleButtonStyle (ButtonId) {
     document.getElementById(ButtonId).style = "color: orange; border: 3px solid orange;";
       
